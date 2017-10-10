@@ -552,6 +552,7 @@ class ImageAgeFilter(AgeFilter, LaunchConfigFilterBase):
         return parse(ami.get(
             self.date_attribute, "2000-01-01T01:01:01.000Z"))
 
+
 @filters.register('image')
 class ImageFilter(ValueFilter, LaunchConfigFilterBase):
     """Filter asg by image
@@ -572,6 +573,7 @@ class ImageFilter(ValueFilter, LaunchConfigFilterBase):
     permissions = (
         "ec2:DescribeImages",
         "autoscaling:DescribeLaunchConfigurations")
+
     schema = type_schema('image', rinherit=ValueFilter.schema)
 
     def process(self, asgs, event=None):
