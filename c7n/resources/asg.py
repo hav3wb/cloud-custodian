@@ -554,14 +554,14 @@ class ImageAgeFilter(AgeFilter, LaunchConfigFilterBase):
 
 @filters.register('image')
 class ImageFilter(ValueFilter, LaunchConfigFilterBase):
-    """Filter asg by image .
+    """Filter asg by image
 
     :example:
 
         .. code-block: yaml
 
             policies:
-              - name: asg-older-image
+              - name: asg-image-tag
                 resource: asg
                 filters:
                   - type: image
