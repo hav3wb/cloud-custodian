@@ -586,7 +586,13 @@ class ImageFilter(ValueFilter, LaunchConfigFilterBase):
         for cfg in self.configs.values():
             image_ids.add(cfg['ImageId'])
         results = self.manager.get_resource_manager('ami').resources()
-        self.images = {i['ImageId']: i for i in results}
+        base_image_map = {i['ImageId']: i for i in results}
+        resources = {i: base_image_map[i] for i in image_ids if i in base_image_map}
+        missing = list(set(image_ids) - set(resources.keys()))
+        if missing:
+            loaded = self.manager.get_resource_manager('ami').get_resources(missing, False)
+            resources.update({image['ImageId']: image for image in loaded})
+        self.images = resources
 
     def __call__(self, i):
         cfg = self.configs[i['LaunchConfigurationName']]
