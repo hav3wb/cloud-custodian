@@ -45,7 +45,6 @@ Find rds instances that are not encrypted
 from __future__ import absolute_import, division, print_function, unicode_literals
 
 import functools
-import json
 import itertools
 import logging
 import operator
@@ -149,7 +148,7 @@ class ConfigRDS(ConfigSource):
     def load_resource(self, item):
         resource = super(ConfigRDS, self).load_resource(item)
         resource['Tags'] = [{u'Key': t['key'], u'Value': t['value']}
-          for t in json.loads(item['Tags'])]
+          for t in item['supplementaryConfiguration']['Tags']]
         return resource
 
 
@@ -868,10 +867,11 @@ class RDSSnapshot(QueryResourceManager):
         dimension = None
         date = 'SnapshotCreateTime'
         config_type = "AWS::RDS::DBSnapshot"
+        # Need resource_type for Universal Tagging
+        resource_type = "rds:snapshot"
 
     filter_registry = FilterRegistry('rds-snapshot.filters')
     action_registry = ActionRegistry('rds-snapshot.actions')
-    filter_registry.register('marked-for-op', tags.TagActionFilter)
 
     _generate_arn = None
     retry = staticmethod(get_retry(('Throttled',)))
@@ -897,14 +897,8 @@ class RDSSnapshot(QueryResourceManager):
 class DescribeRDSSnapshot(DescribeSource):
 
     def augment(self, snaps):
-        filter(None, _rds_snap_tags(
-            self.manager.get_model(),
-            snaps,
-            self.manager.session_factory,
-            self.manager.executor_factory,
-            self.manager.generate_arn,
-            self.manager.retry))
-        return snaps
+        return universal_augment(
+            self.manager, super(DescribeRDSSnapshot, self).augment(snaps))
 
 
 class ConfigRDSSnapshot(ConfigSource):
@@ -912,33 +906,14 @@ class ConfigRDSSnapshot(ConfigSource):
     def load_resource(self, item):
         resource = super(ConfigRDSSnapshot, self).load_resource(item)
         resource['Tags'] = [{u'Key': t['key'], u'Value': t['value']}
-          for t in json.loads(item['Tags'])]
+          for t in item['supplementaryConfiguration']['Tags']]
         # TODO: Load DBSnapshotAttributes into annotation
         return resource
 
 
-def _rds_snap_tags(
-        model, snaps, session_factory, executor_factory, generator, retry):
-    """Augment rds snapshots with their respective tags."""
-
-    def process_tags(snap):
-        client = local_session(session_factory).client('rds')
-        arn = generator(snap[model.id])
-        tag_list = None
-        try:
-            tag_list = retry(
-                client.list_tags_for_resource, ResourceName=arn)['TagList']
-        except ClientError as e:
-            if e.response['Error']['Code'] not in ['DBSnapshotNotFound']:
-                log.error(
-                    "Exception getting rds snapshot:%s tags  \n %s",
-                    snap['DBSnapshotIdentifier'], e)
-            return None
-        snap['Tags'] = tag_list or []
-        return snap
-
-    with executor_factory(max_workers=1) as w:
-        return list(filter(None, (w.map(process_tags, snaps))))
+register_universal_tags(
+    RDSSnapshot.filter_registry,
+    RDSSnapshot.action_registry)
 
 
 @RDSSnapshot.filter_registry.register('onhour')
@@ -1097,104 +1072,6 @@ class RestoreInstance(BaseAction):
         params.update(self.data.get('restore_options', {}))
         post_modify.update(self.data.get('modify_options', {}))
         return params, post_modify
-
-
-@RDSSnapshot.action_registry.register('tag')
-class RDSSnapshotTag(tags.Tag):
-    """Action to tag a RDS snapshot
-
-    :example:
-
-        .. code-block: yaml
-
-            policies:
-              - name: rds-snapshot-add-owner
-                resource: rds-snapshot
-                filters:
-                  - type: age
-                    days: 7
-                    op: le
-                actions:
-                  - type: tag
-                    key: rds_owner
-                    value: rds_owner_name
-    """
-
-    concurrency = 2
-    batch_size = 5
-
-    def process_resource_set(self, snaps, ts):
-        client = local_session(
-            self.manager.session_factory).client('rds')
-        for snap in snaps:
-            arn = self.manager.generate_arn(snap['DBSnapshotIdentifier'])
-            client.add_tags_to_resource(ResourceName=arn, Tags=ts)
-
-
-@RDSSnapshot.action_registry.register('mark-for-op')
-class RDSSnapshotTagDelayedAction(tags.TagDelayedAction):
-    """Mark RDS snapshot resource for an operation at a later date
-
-    :example:
-
-        .. code-block: yaml
-
-            policies:
-              - name: delete-stale-snapshots
-                resource: rds-snapshot
-                filters:
-                  - type: age
-                    days: 21
-                    op: eq
-                actions:
-                  - type: mark-for-op
-                    op: delete
-                    days: 7
-    """
-
-    schema = type_schema(
-        'mark-for-op', rinherit=tags.TagDelayedAction.schema,
-        op={'enum': ['delete']})
-
-    batch_size = 5
-
-    def process_resource_set(self, snaps, ts):
-        client = local_session(self.manager.session_factory).client('rds')
-        for snap in snaps:
-            arn = self.manager.generate_arn(snap['DBSnapshotIdentifier'])
-            client.add_tags_to_resource(ResourceName=arn, Tags=ts)
-
-
-@RDSSnapshot.action_registry.register('remove-tag')
-@RDSSnapshot.action_registry.register('unmark')
-class RDSSnapshotRemoveTag(tags.RemoveTag):
-    """Removes a tag/set of tags from a RDS snapshot resource
-
-    :example:
-
-        .. code-block: yaml
-
-            policies:
-              - name: rds-snapshot-unmark
-                resource: rds-snapshot
-                filters:
-                  - "tag:rds_owner": present
-                actions:
-                  - type: remove-tag
-                    tags:
-                      - rds_owner
-    """
-
-    concurrency = 2
-    batch_size = 5
-
-    def process_resource_set(self, snaps, tag_keys):
-        client = local_session(
-            self.manager.session_factory).client('rds')
-        for snap in snaps:
-            arn = self.manager.generate_arn(snap['DBSnapshotIdentifier'])
-            client.remove_tags_from_resource(
-                ResourceName=arn, TagKeys=tag_keys)
 
 
 @RDSSnapshot.filter_registry.register('cross-account')

@@ -58,7 +58,7 @@ from concurrent.futures import as_completed
 from dateutil.parser import parse as parse_date
 
 from c7n.actions import (
-    ActionRegistry, BaseAction, AutoTagUser, PutMetric, RemovePolicyBase)
+    ActionRegistry, BaseAction, PutMetric, RemovePolicyBase)
 from c7n.filters import (
     FilterRegistry, Filter, CrossAccountAccessFilter, MetricsFilter,
     ValueFilter)
@@ -74,7 +74,6 @@ log = logging.getLogger('custodian.s3')
 filters = FilterRegistry('s3.filters')
 actions = ActionRegistry('s3.actions')
 filters.register('marked-for-op', TagActionFilter)
-actions.register('auto-tag-user', AutoTagUser)
 actions.register('put-metric', PutMetric)
 
 MAX_COPY_SIZE = 1024 * 1024 * 1024 * 2
@@ -325,7 +324,9 @@ class ConfigS3(query.ConfigSource):
             {"Key": k, "Value": v} for k, v in item_value['tagSets'][0]['tags'].items()]
 
     def handle_BucketVersioningConfiguration(self, resource, item_value):
-        assert item_value['status'] in ('Enabled', 'Suspended')
+        # Config defaults versioning to 'Off' for a null value
+        if item_value['status'] not in ('Enabled', 'Suspended'):
+            return
         resource['Versioning'] = {'Status': item_value['status']}
         if item_value['isMfaDeleteEnabled']:
             resource['Versioning']['MFADelete'] = item_value[
@@ -390,7 +391,7 @@ S3_AUGMENT_TABLE = (
     ('get_bucket_website', 'Website', None, None),
     ('get_bucket_logging', 'Logging', None, 'LoggingEnabled'),
     ('get_bucket_notification_configuration', 'Notification', None, None),
-    ('get_bucket_lifecycle', 'Lifecycle', None, None),
+    ('get_bucket_lifecycle_configuration', 'Lifecycle', None, None),
     #        ('get_bucket_cors', 'Cors'),
 )
 
@@ -457,11 +458,7 @@ def assemble_bucket(item):
 
 
 def bucket_client(session, b, kms=False):
-    location = b.get('Location')
-    if location is None:
-        region = 'us-east-1'
-    else:
-        region = location['LocationConstraint'] or 'us-east-1'
+    region = get_region(b)
 
     if kms:
         # Need v4 signature for aws:kms crypto, else let the sdk decide
@@ -492,6 +489,24 @@ def modify_bucket_tags(session_factory, buckets, add_tags=(), remove_tags=()):
             log.exception(
                 'Exception tagging bucket %s: %s', bucket['Name'], e)
             continue
+
+
+def get_region(b):
+    """Tries to get the bucket region from Location.LocationConstraint
+
+    Special cases:
+        LocationConstraint EU defaults to eu-west-1
+        LocationConstraint null defaults to us-east-1
+
+    Args:
+        b (object): A bucket object
+
+    Returns:
+        string: an aws region string
+    """
+    remap = {None: 'us-east-1', 'EU': 'eu-west-1'}
+    region = b.get('Location', {}).get('LocationConstraint')
+    return remap.get(region, region)
 
 
 @filters.register('metrics')
@@ -731,22 +746,16 @@ class EncryptionEnabledFilter(Filter):
         if p is None:
             return b
         p = json.loads(p)
-        encryption_statement = ENCRYPTION_STATEMENT_GLOB
+        encryption_statement = dict(ENCRYPTION_STATEMENT_GLOB)
 
         statements = p.get('Statement', [])
         check = False
         for s in list(statements):
-            try:
+            if 'Sid' in s:
                 encryption_statement["Sid"] = s["Sid"]
-            except:
-                log.info("Bucket:%s doesn't have Sid" % b['Name'])
-            try:
+            if 'Resource' in s:
                 encryption_statement["Resource"] = s["Resource"]
-            except:
-                log.info("Bucket:%s doesn't have Resource" % b['Name'])
             if s == encryption_statement:
-                log.info(
-                    "Bucket:%s contains correct encryption policy", b['Name'])
                 check = True
                 break
         if check:
@@ -836,6 +845,7 @@ class RemovePolicyStatement(RemovePolicyBase):
                 futures[w.submit(self.process_bucket, b)] = b
             for f in as_completed(futures):
                 if f.exception():
+                    b = futures[f]
                     self.log.error('error modifying bucket:%s\n%s',
                                    b['Name'], f.exception())
                 results += filter(None, [f.result()])
@@ -1028,10 +1038,7 @@ class AttachLambdaEncrypt(BucketActionBase):
             None, self.data.get('role', self.manager.config.assume_role),
             account_id=account_id, tags=self.data.get('tags'))
 
-        regions = set([
-            b.get('Location', {
-                'LocationConstraint': 'us-east-1'})['LocationConstraint']
-            for b in buckets])
+        regions = set([get_region(b) for b in buckets])
 
         # session managers by region
         region_sessions = {}
@@ -1051,9 +1058,7 @@ class AttachLambdaEncrypt(BucketActionBase):
             results = []
             futures = []
             for b in buckets:
-                region = b.get('Location', {
-                    'LocationConstraint': 'us-east-1'}).get(
-                        'LocationConstraint')
+                region = get_region(b)
                 futures.append(
                     w.submit(
                         self.process_bucket,
@@ -2008,7 +2013,13 @@ class SetInventory(BucketActionBase):
 
     def process(self, buckets):
         with self.executor_factory(max_workers=2) as w:
-            list(w.map(self.process_bucket, buckets))
+            futures = {w.submit(self.process_bucket, bucket): bucket for bucket in buckets}
+            for future in as_completed(futures):
+                bucket = futures[future]
+                try:
+                    future.result()
+                except Exception as e:
+                    self.log.error('Message: %s Bucket: %s', e, bucket['Name'])
 
     def process_bucket(self, b):
         inventory_name = self.data.get('name')
@@ -2203,3 +2214,177 @@ class DeleteBucket(ScanBucket):
             Bucket=bucket['Name'], Delete={'Objects': objects}).get('Deleted', ())
         if self.get_bucket_style(bucket) != 'versioned':
             return results
+
+
+@actions.register('configure-lifecycle')
+class Lifecycle(BucketActionBase):
+    """Action applies a lifecycle policy to versioned S3 buckets
+
+    The schema to supply to the rule follows the schema here: goo.gl/yULzNc
+
+    To delete a lifecycle rule, supply Status=absent
+
+    :example:
+
+        .. code-block: yaml
+
+            policies:
+              - name: s3-apply-lifecycle
+                resource: s3
+                actions:
+                  - type: configure-lifecycle
+                    rules:
+                      - ID: my-lifecycle-id
+                        Status: Enabled
+                        Prefix: foo/
+                        Transitions:
+                          - Days: 60
+                            StorageClass: GLACIER
+
+    """
+
+    schema = type_schema(
+        'configure-lifecycle',
+        **{
+            'rules': {
+                'type': 'array',
+                'required': True,
+                'items': {
+                    'type': 'object',
+                    'required': ['ID', 'Status'],
+                    'additionalProperties': False,
+                    'properties': {
+                        'ID': {'type': 'string'},
+                        # c7n intercepts `absent`
+                        'Status': {'enum': ['Enabled', 'Disabled', 'absent']},
+                        'Prefix': {'type': 'string'},
+                        'Expiration': {
+                            'type': 'object',
+                            'additionalProperties': False,
+                            'properties': {
+                                'Date': {'type': 'string'},  # Date
+                                'Days': {'type': 'integer'},
+                                'ExpiredObjectDeleteMarker': {'type': 'boolean'},
+                            },
+                        },
+                        'Filter': {
+                            'type': 'object',
+                            'minProperties': 1,
+                            'maxProperties': 1,
+                            'additionalProperties': False,
+                            'properties': {
+                                'Prefix': {'type': 'string'},
+                                'Tag': {
+                                    'type': 'object',
+                                    'required': ['Key', 'Value'],
+                                    'additionalProperties': False,
+                                    'properties': {
+                                        'Key': {'type': 'string'},
+                                        'Value': {'type': 'string'},
+                                    },
+                                },
+                                'And': {
+                                    'type': 'object',
+                                    'additionalProperties': False,
+                                    'items': {
+                                        'Prefix': {'type': 'string'},
+                                        'Tags': {
+                                            'type': 'array',
+                                            'items': {
+                                                'type': 'object',
+                                                'required': ['Key', 'Value'],
+                                                'additionalProperties': False,
+                                                'items': {
+                                                    'Key': {'type': 'string'},
+                                                    'Value': {'type': 'string'},
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                        'Transitions': {
+                            'type': 'array',
+                            'items': {
+                                'type': 'object',
+                                'additionalProperties': False,
+                                'properties': {
+                                    'Date': {'type': 'string'},  # Date
+                                    'Days': {'type': 'integer'},
+                                    'StorageClass': {'type': 'string'},
+                                },
+                            },
+                        },
+                        'NoncurrentVersionTransitions': {
+                            'type': 'array',
+                            'items': {
+                                'type': 'object',
+                                'additionalProperties': False,
+                                'properties': {
+                                    'NoncurrentDays': {'type': 'integer'},
+                                    'StorageClass': {'type': 'string'},
+                                },
+                            },
+                        },
+                        'NoncurrentVersionExpiration': {
+                            'type': 'object',
+                            'additionalProperties': False,
+                            'items': {
+                                'NoncurrentDays': {'type': 'integer'},
+                            },
+                        },
+                        'AbortIncompleteMultipartUpload': {
+                            'type': 'object',
+                            'additionalProperties': False,
+                            'items': {
+                                'DaysAfterInitiation': {'type': 'integer'},
+                            },
+                        },
+                    },
+                },
+            },
+        }
+    )
+
+    permissions = ('s3:GetLifecycleConfiguration', 's3:PutLifecycleConfiguration')
+
+    def process(self, buckets):
+        with self.executor_factory(max_workers=3) as w:
+            futures = {}
+            results = []
+
+            for b in buckets:
+                futures[w.submit(self.process_bucket, b)] = b
+
+            for future in as_completed(futures):
+                if future.exception():
+                    bucket = futures[future]
+                    self.log.error('error modifying bucket lifecycle: %s\n%s',
+                                   bucket['Name'], future.exception())
+                results += filter(None, [future.result()])
+
+            return results
+
+    def process_bucket(self, bucket):
+        s3 = bucket_client(local_session(self.manager.session_factory), bucket)
+
+        # Adjust the existing lifecycle by adding/deleting/overwriting rules as necessary
+        config = (bucket['Lifecycle'] or {}).get('Rules', [])
+        for rule in self.data['rules']:
+            for index, existing_rule in enumerate(config):
+                if rule['ID'] == existing_rule['ID']:
+                    if rule['Status'] == 'absent':
+                        config[index] = None
+                    else:
+                        config[index] = rule
+                    break
+            else:
+                if rule['Status'] != 'absent':
+                    config.append(rule)
+
+        # The extra `list` conversion if required for python3
+        config = list(filter(None, config))
+
+        s3.put_bucket_lifecycle_configuration(
+            Bucket=bucket['Name'], LifecycleConfiguration={'Rules': config})

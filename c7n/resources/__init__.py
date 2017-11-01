@@ -45,6 +45,7 @@ def load_resources():
     import c7n.resources.cw
     import c7n.resources.directory
     import c7n.resources.directconnect
+    import c7n.resources.dms
     import c7n.resources.dynamodb
     import c7n.resources.datapipeline
     import c7n.resources.ebs
@@ -87,5 +88,6 @@ def load_resources():
     # Load external plugins (private sdks etc)
     from c7n.manager import resources
     resources.load_plugins()
+    resources.notify(resources.EVENT_FINAL)
 
     LOADED = True
