@@ -83,7 +83,7 @@ class DeleteStack(BaseAction, StateTransitionFilter):
         "opsworks:DeleteInstance")
 
     def process(self, stacks):
-        with self.executor_factory(max_workers=10) as w:
+        with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_stacks, stacks))
 
     def process_stacks(self, stack):
@@ -186,7 +186,7 @@ class CMDelete(BaseAction):
     permissions = ("opsworks-cm:DeleteServer",)
 
     def process(self, servers):
-        with self.executor_factory(max_workers=10) as w:
+        with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_servers, servers))
 
     def process_servers(self, server):

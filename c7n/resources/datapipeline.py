@@ -101,7 +101,7 @@ class Delete(BaseAction):
     permissions = ("datapipeline:DeletePipeline",)
 
     def process(self, pipelines):
-        with self.executor_factory(max_workers=10) as w:
+        with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_pipelines, pipelines))
 
     def process_pipelines(self, pipeline):

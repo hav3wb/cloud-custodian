@@ -56,7 +56,7 @@ class DeleteMLModel(BaseAction):
     permissions = ("machinelearning:DeleteMLModel",)
 
     def process(self, models):
-        with self.executor_factory(max_workers=10) as w:
+        with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_models, models))
 
     def process_models(self, model):

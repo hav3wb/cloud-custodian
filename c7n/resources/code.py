@@ -60,7 +60,7 @@ class DeleteRepository(BaseAction):
     permissions = ("codecommit:DeleteRepository",)
 
     def process(self, repositories):
-        with self.executor_factory(max_workers=10) as w:
+        with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_repositories, repositories))
 
     def process_repositories(self, repository):
@@ -108,7 +108,7 @@ class DeleteProject(BaseAction):
     permissions = ("codebuild:DeleteProject",)
 
     def process(self, projects):
-        with self.executor_factory(max_workers=10) as w:
+        with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_projects, projects))
 
     def process_projects(self, project):

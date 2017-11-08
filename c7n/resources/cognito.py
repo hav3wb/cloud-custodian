@@ -56,7 +56,7 @@ class DeleteIdentityPool(BaseAction):
     permissions = ("cognito-identity:DeleteIdentityPool",)
 
     def process(self, pools):
-        with self.executor_factory(max_workers=10) as w:
+        with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_pools, pools))
 
     def process_pools(self, pool):
@@ -104,7 +104,7 @@ class DeleteUserPool(BaseAction):
     permissions = ("cognito-idp:DeleteUserPool",)
 
     def process(self, pools):
-        with self.executor_factory(max_workers=10) as w:
+        with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_pools, pools))
 
     def process_pools(self, pool):
