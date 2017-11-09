@@ -1,0 +1,31 @@
+{
+    "status_code": 200, 
+    "data": {
+        "hasMoreResults": false, 
+        "ResponseMetadata": {
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 200, 
+            "RequestId": "bf5528f1-c564-11e7-911d-53c39dc5d133", 
+            "HTTPHeaders": {
+                "x-amzn-requestid": "bf5528f1-c564-11e7-911d-53c39dc5d133", 
+                "date": "Thu, 09 Nov 2017 15:43:35 GMT", 
+                "content-length": "232", 
+                "content-type": "application/x-amz-json-1.1"
+            }
+        }, 
+        "pipelineIdList": [
+            {
+                "id": "df-03640891QFXCLH8PHYSU", 
+                "name": "test-data-pipeline3"
+            }, 
+            {
+                "id": "df-03252263EXQ8G60JS0IG", 
+                "name": "test-delete-pipeline2"
+            }, 
+            {
+                "id": "df-01551281TB5UK9YWHIRS", 
+                "name": "test-delete-pipeline"
+            }
+        ]
+    }
+}

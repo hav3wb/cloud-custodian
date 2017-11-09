@@ -1,0 +1,69 @@
+{
+    "status_code": 200, 
+    "data": {
+        "UserPools": [
+            {
+                "CreationDate": {
+                    "hour": 9, 
+                    "__class__": "datetime", 
+                    "month": 11, 
+                    "second": 3, 
+                    "microsecond": 367000, 
+                    "year": 2017, 
+                    "day": 9, 
+                    "minute": 24
+                }, 
+                "LastModifiedDate": {
+                    "hour": 9, 
+                    "__class__": "datetime", 
+                    "month": 11, 
+                    "second": 3, 
+                    "microsecond": 367000, 
+                    "year": 2017, 
+                    "day": 9, 
+                    "minute": 24
+                }, 
+                "LambdaConfig": {}, 
+                "Id": "us-east-1_HmsYGYiGg", 
+                "Name": "test-delete-user-pool2"
+            }, 
+            {
+                "CreationDate": {
+                    "hour": 9, 
+                    "__class__": "datetime", 
+                    "month": 11, 
+                    "second": 46, 
+                    "microsecond": 729000, 
+                    "year": 2017, 
+                    "day": 9, 
+                    "minute": 23
+                }, 
+                "LastModifiedDate": {
+                    "hour": 9, 
+                    "__class__": "datetime", 
+                    "month": 11, 
+                    "second": 46, 
+                    "microsecond": 729000, 
+                    "year": 2017, 
+                    "day": 9, 
+                    "minute": 23
+                }, 
+                "LambdaConfig": {}, 
+                "Id": "us-east-1_nyTjhjSNv", 
+                "Name": "test-delete-user-pool"
+            }
+        ], 
+        "ResponseMetadata": {
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 200, 
+            "RequestId": "ddcb2a98-c559-11e7-b114-0560ad7e5c67", 
+            "HTTPHeaders": {
+                "date": "Thu, 09 Nov 2017 14:25:41 GMT", 
+                "x-amzn-requestid": "ddcb2a98-c559-11e7-b114-0560ad7e5c67", 
+                "content-length": "308", 
+                "content-type": "application/x-amz-json-1.1", 
+                "connection": "keep-alive"
+            }
+        }
+    }
+}

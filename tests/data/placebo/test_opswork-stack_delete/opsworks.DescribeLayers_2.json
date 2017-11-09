@@ -1,0 +1,86 @@
+{
+    "status_code": 200, 
+    "data": {
+        "Layers": [
+            {
+                "StackId": "ebd5f168-f7a4-43bc-9a7b-7aa5bb83b9ad", 
+                "LifecycleEventConfiguration": {
+                    "Shutdown": {
+                        "DelayUntilElbConnectionsDrained": false, 
+                        "ExecutionTimeout": 120
+                    }
+                }, 
+                "CustomRecipes": {
+                    "Undeploy": [], 
+                    "Setup": [], 
+                    "Configure": [], 
+                    "Shutdown": [], 
+                    "Deploy": [
+                        "nodejs_demo"
+                    ]
+                }, 
+                "Packages": [], 
+                "Name": "Node.js App Server", 
+                "CloudWatchLogsConfiguration": {}, 
+                "CustomSecurityGroupIds": [], 
+                "DefaultRecipes": {
+                    "Undeploy": [], 
+                    "Setup": [], 
+                    "Configure": [], 
+                    "Shutdown": [], 
+                    "Deploy": []
+                }, 
+                "VolumeConfigurations": [], 
+                "CreatedAt": "2017-11-09T16:03:34+00:00", 
+                "AutoAssignElasticIps": false, 
+                "EnableAutoHealing": true, 
+                "AutoAssignPublicIps": true, 
+                "UseEbsOptimizedInstances": false, 
+                "LayerId": "c7906f65-f510-4d56-ab28-0870eb19c2d8", 
+                "Attributes": {
+                    "JvmVersion": null, 
+                    "RailsStack": null, 
+                    "EnableHaproxyStats": null, 
+                    "MysqlRootPasswordUbiquitous": null, 
+                    "NodejsVersion": null, 
+                    "HaproxyHealthCheckUrl": null, 
+                    "GangliaPassword": null, 
+                    "Jvm": null, 
+                    "HaproxyHealthCheckMethod": null, 
+                    "RubyVersion": null, 
+                    "HaproxyStatsPassword": null, 
+                    "MysqlRootPassword": null, 
+                    "JavaAppServer": null, 
+                    "MemcachedMemory": null, 
+                    "HaproxyStatsUrl": null, 
+                    "BundlerVersion": null, 
+                    "PassengerVersion": null, 
+                    "ManageBundler": null, 
+                    "JavaAppServerVersion": null, 
+                    "HaproxyStatsUser": null, 
+                    "GangliaUser": null, 
+                    "JvmOptions": null, 
+                    "EcsClusterArn": null, 
+                    "RubygemsVersion": null, 
+                    "GangliaUrl": null
+                }, 
+                "Shortname": "nodejs-server", 
+                "DefaultSecurityGroupNames": [], 
+                "Type": "custom", 
+                "Arn": "arn:aws:opsworks:us-east-1:644160558196:layer/c7906f65-f510-4d56-ab28-0870eb19c2d8"
+            }
+        ], 
+        "ResponseMetadata": {
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 200, 
+            "RequestId": "468b511d-c56a-11e7-9a4e-d71ae0109a3f", 
+            "HTTPHeaders": {
+                "date": "Thu, 09 Nov 2017 16:23:10 GMT", 
+                "x-amzn-requestid": "468b511d-c56a-11e7-9a4e-d71ae0109a3f", 
+                "content-length": "1436", 
+                "content-type": "application/x-amz-json-1.1", 
+                "connection": "keep-alive"
+            }
+        }
+    }
+}

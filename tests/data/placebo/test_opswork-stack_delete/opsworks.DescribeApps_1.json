@@ -1,0 +1,47 @@
+{
+    "status_code": 200, 
+    "data": {
+        "Apps": [
+            {
+                "StackId": "ba31e78a-19a0-44a1-9ba3-e04ab78e00d0", 
+                "Environment": [
+                    {
+                        "Value": "admin@example.com", 
+                        "Key": "APP_ADMIN_EMAIL", 
+                        "Secure": false
+                    }
+                ], 
+                "AppSource": {
+                    "Url": "https://github.com/awslabs/opsworks-windows-demo-nodejs.git", 
+                    "Type": "git"
+                }, 
+                "DataSources": [], 
+                "EnableSsl": false, 
+                "SslConfiguration": {}, 
+                "AppId": "09e04c7b-995a-483d-bc31-f65c886afff0", 
+                "Attributes": {
+                    "RailsEnv": null, 
+                    "AutoBundleOnDeploy": "true", 
+                    "AwsFlowRubySettings": "{}", 
+                    "DocumentRoot": null
+                }, 
+                "Shortname": "nodejs_sample_app", 
+                "Type": "other", 
+                "CreatedAt": "2017-11-09T16:02:38+00:00", 
+                "Name": "Node.js Sample App"
+            }
+        ], 
+        "ResponseMetadata": {
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 200, 
+            "RequestId": "459b9a6a-c56a-11e7-9db4-bd5dda854f3e", 
+            "HTTPHeaders": {
+                "date": "Thu, 09 Nov 2017 16:23:07 GMT", 
+                "x-amzn-requestid": "459b9a6a-c56a-11e7-9db4-bd5dda854f3e", 
+                "content-length": "566", 
+                "content-type": "application/x-amz-json-1.1", 
+                "connection": "keep-alive"
+            }
+        }
+    }
+}

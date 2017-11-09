@@ -1,0 +1,17 @@
+{
+    "status_code": 200, 
+    "data": {
+        "ResponseMetadata": {
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 200, 
+            "RequestId": "2afbbd37-c561-11e7-bee1-f31578050850", 
+            "HTTPHeaders": {
+                "x-amzn-requestid": "2afbbd37-c561-11e7-bee1-f31578050850", 
+                "date": "Thu, 09 Nov 2017 15:17:57 GMT", 
+                "content-length": "55", 
+                "content-type": "application/x-amz-json-1.1"
+            }
+        }, 
+        "repositoryId": "738edb78-6bb5-4ceb-a00d-1d4547e7afec"
+    }
+}

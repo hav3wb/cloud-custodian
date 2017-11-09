@@ -73,3 +73,18 @@ class DataPipelineTest(BaseTest):
         self.assertEqual(resource['accountId'], '644160558196')
         self.assertEqual(resource['userId'], 'AIDAIXI7ULG2SDYI3RBNM')
         self.assertEqual(resource['firstActivationTime'], '2017-03-13T11:37:36')
+
+
+    def test_delete_datapipeline(self):
+        factory = self.replay_flight_data('test_datapipeline_delete')
+        p = self.load_policy({
+            'name': 'delete-datapipeline',
+            'resource': 'datapipeline',
+            'filters': [{'pipelineState': 'SCHEDULED'}],
+            'actions': ['delete']
+        }, session_factory=factory)
+        resources = p.run()
+        self.assertEqual(len(resources), 2)
+        self.assertEqual(
+            sorted([r['name'] for r in resources]),
+            ['test-delete-pipeline', 'test-delete-pipeline2'])

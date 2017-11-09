@@ -1,0 +1,54 @@
+{
+    "status_code": 200, 
+    "data": {
+        "Instances": [
+            {
+                "StackId": "ba31e78a-19a0-44a1-9ba3-e04ab78e00d0", 
+                "Hostname": "nodejs-server1", 
+                "Platform": "linux", 
+                "EbsOptimized": false, 
+                "ReportedOs": {}, 
+                "Status": "stopped", 
+                "InstanceId": "17497ec0-e59b-4e98-9f57-f0dbfcf2d8b1", 
+                "InfrastructureClass": "ec2", 
+                "Tenancy": "default", 
+                "AgentVersion": "INHERIT", 
+                "SubnetId": "subnet-914763e7", 
+                "InstanceType": "t2.medium", 
+                "CreatedAt": "2017-11-09T16:02:39+00:00", 
+                "AmiId": "ami-8c1be5f6", 
+                "LayerIds": [
+                    "47568d68-047f-427b-b602-c43ee68af1ae"
+                ], 
+                "SecurityGroupIds": [], 
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "ROOT_DEVICE", 
+                        "Ebs": {
+                            "VolumeType": "gp2"
+                        }
+                    }
+                ], 
+                "Architecture": "x86_64", 
+                "RootDeviceType": "ebs", 
+                "InstallUpdatesOnBoot": true, 
+                "Os": "Amazon Linux 2017.09", 
+                "VirtualizationType": "hvm", 
+                "AvailabilityZone": "us-east-1a", 
+                "Arn": "arn:aws:opsworks:us-east-1:644160558196:instance/17497ec0-e59b-4e98-9f57-f0dbfcf2d8b1"
+            }
+        ], 
+        "ResponseMetadata": {
+            "RetryAttempts": 0, 
+            "HTTPStatusCode": 200, 
+            "RequestId": "45dbd6d2-c56a-11e7-bcbf-37c29d849dc3", 
+            "HTTPHeaders": {
+                "date": "Thu, 09 Nov 2017 16:23:08 GMT", 
+                "x-amzn-requestid": "45dbd6d2-c56a-11e7-bcbf-37c29d849dc3", 
+                "content-length": "823", 
+                "content-type": "application/x-amz-json-1.1", 
+                "connection": "keep-alive"
+            }
+        }
+    }
+}
