@@ -97,10 +97,13 @@ class DeleteStack(BaseAction, StateTransitionFilter):
             orig_length = len(instances)
             instances = self.filter_instance_state(instances)
             if(len(instances) != orig_length):
-                self.log.exception("All instances must be stopped before deletion.")
+                self.log.exception(
+                    "All instances must be stopped before deletion. Stack Id: %s Name: %s." %
+                    (stack_id, stack['Name']))
                 return
             for instance in instances:
                 instance_id = instance['InstanceId']
+                # Validation Exception raised for instances that are stopping when delete is called
                 retryable = ('ValidationException'),
                 retry = utils.get_retry(retryable, max_attempts=8)
                 try:

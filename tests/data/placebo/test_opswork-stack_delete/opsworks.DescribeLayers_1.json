@@ -3,7 +3,7 @@
     "data": {
         "Layers": [
             {
-                "StackId": "ba31e78a-19a0-44a1-9ba3-e04ab78e00d0", 
+                "StackId": "50747b4f-b73a-4dc5-9d08-957e037170c4", 
                 "LifecycleEventConfiguration": {
                     "Shutdown": {
                         "DelayUntilElbConnectionsDrained": false, 
@@ -31,12 +31,12 @@
                     "Deploy": []
                 }, 
                 "VolumeConfigurations": [], 
-                "CreatedAt": "2017-11-09T16:02:38+00:00", 
+                "CreatedAt": "2017-11-14T18:35:27+00:00", 
                 "AutoAssignElasticIps": false, 
                 "EnableAutoHealing": true, 
                 "AutoAssignPublicIps": true, 
                 "UseEbsOptimizedInstances": false, 
-                "LayerId": "47568d68-047f-427b-b602-c43ee68af1ae", 
+                "LayerId": "a273bea6-a596-48de-b23f-15cec051e8af", 
                 "Attributes": {
                     "JvmVersion": null, 
                     "RailsStack": null, 
@@ -67,16 +67,16 @@
                 "Shortname": "nodejs-server", 
                 "DefaultSecurityGroupNames": [], 
                 "Type": "custom", 
-                "Arn": "arn:aws:opsworks:us-east-1:644160558196:layer/47568d68-047f-427b-b602-c43ee68af1ae"
+                "Arn": "arn:aws:opsworks:us-east-1:644160558196:layer/a273bea6-a596-48de-b23f-15cec051e8af"
             }
         ], 
         "ResponseMetadata": {
             "RetryAttempts": 0, 
             "HTTPStatusCode": 200, 
-            "RequestId": "4648068e-c56a-11e7-bf43-cf3bd2605d40", 
+            "RequestId": "a4ae6c29-c96a-11e7-bc89-db4690af87e5", 
             "HTTPHeaders": {
-                "date": "Thu, 09 Nov 2017 16:23:08 GMT", 
-                "x-amzn-requestid": "4648068e-c56a-11e7-bf43-cf3bd2605d40", 
+                "date": "Tue, 14 Nov 2017 18:35:52 GMT", 
+                "x-amzn-requestid": "a4ae6c29-c96a-11e7-bc89-db4690af87e5", 
                 "content-length": "1436", 
                 "content-type": "application/x-amz-json-1.1", 
                 "connection": "keep-alive"

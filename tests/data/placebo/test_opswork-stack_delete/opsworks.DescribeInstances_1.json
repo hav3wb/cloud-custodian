@@ -3,26 +3,24 @@
     "data": {
         "Instances": [
             {
-                "StackId": "ebd5f168-f7a4-43bc-9a7b-7aa5bb83b9ad", 
-                "SshHostRsaKeyFingerprint": "db:95:f2:bd:a3:da:fd:d5:73:2c:1c:d1:52:d4:13:3c", 
-                "SshHostDsaKeyFingerprint": "55:d1:db:f7:03:b6:b2:d1:48:63:c1:ec:f9:aa:b1:2d", 
+                "StackId": "50747b4f-b73a-4dc5-9d08-957e037170c4", 
+                "Hostname": "nodejs-server1", 
                 "Platform": "linux", 
                 "EbsOptimized": false, 
                 "ReportedOs": {}, 
                 "Status": "stopped", 
-                "InstanceId": "1308e512-1a6c-48c0-bec0-4e9c6fd13338", 
+                "InstanceId": "ae9c4708-48fd-4019-88e5-65215f70fe13", 
                 "InfrastructureClass": "ec2", 
-                "RootDeviceVolumeId": "vol-0f8ba273128d71f86", 
                 "Tenancy": "default", 
                 "AgentVersion": "INHERIT", 
                 "SubnetId": "subnet-914763e7", 
                 "InstanceType": "t2.medium", 
-                "CreatedAt": "2017-11-09T16:03:35+00:00", 
-                "Hostname": "nodejs-server1", 
-                "Ec2InstanceId": "i-078b43914954e19c5", 
-                "SecurityGroupIds": [
-                    "sg-5bd8d829"
+                "CreatedAt": "2017-11-14T18:35:28+00:00", 
+                "AmiId": "ami-8c1be5f6", 
+                "LayerIds": [
+                    "a273bea6-a596-48de-b23f-15cec051e8af"
                 ], 
+                "SecurityGroupIds": [], 
                 "BlockDeviceMappings": [
                     {
                         "DeviceName": "ROOT_DEVICE", 
@@ -37,20 +35,17 @@
                 "Os": "Amazon Linux 2017.09", 
                 "VirtualizationType": "hvm", 
                 "AvailabilityZone": "us-east-1a", 
-                "LayerIds": [
-                    "c7906f65-f510-4d56-ab28-0870eb19c2d8"
-                ], 
-                "Arn": "arn:aws:opsworks:us-east-1:644160558196:instance/1308e512-1a6c-48c0-bec0-4e9c6fd13338"
+                "Arn": "arn:aws:opsworks:us-east-1:644160558196:instance/ae9c4708-48fd-4019-88e5-65215f70fe13"
             }
         ], 
         "ResponseMetadata": {
             "RetryAttempts": 0, 
             "HTTPStatusCode": 200, 
-            "RequestId": "45d08cf7-c56a-11e7-9c8e-a193afc57684", 
+            "RequestId": "a44faa3c-c96a-11e7-b16d-ef4f3d2029b2", 
             "HTTPHeaders": {
-                "date": "Thu, 09 Nov 2017 16:23:08 GMT", 
-                "x-amzn-requestid": "45d08cf7-c56a-11e7-9c8e-a193afc57684", 
-                "content-length": "1050", 
+                "date": "Tue, 14 Nov 2017 18:35:51 GMT", 
+                "x-amzn-requestid": "a44faa3c-c96a-11e7-b16d-ef4f3d2029b2", 
+                "content-length": "823", 
                 "content-type": "application/x-amz-json-1.1", 
                 "connection": "keep-alive"
             }

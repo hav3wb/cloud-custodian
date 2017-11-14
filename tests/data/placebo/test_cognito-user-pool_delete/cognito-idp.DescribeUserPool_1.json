@@ -221,14 +221,14 @@
                 "DefaultEmailOption": "CONFIRM_WITH_CODE"
             }, 
             "LastModifiedDate": {
-                "hour": 9, 
+                "hour": 11, 
                 "__class__": "datetime", 
                 "month": 11, 
-                "second": 3, 
-                "microsecond": 367000, 
+                "second": 27, 
+                "microsecond": 100000, 
                 "year": 2017, 
-                "day": 9, 
-                "minute": 24
+                "day": 14, 
+                "minute": 20
             }, 
             "AdminCreateUserConfig": {
                 "UnusedAccountValidityDays": 7, 
@@ -249,27 +249,27 @@
             }, 
             "UserPoolTags": {}, 
             "CreationDate": {
-                "hour": 9, 
+                "hour": 11, 
                 "__class__": "datetime", 
                 "month": 11, 
-                "second": 3, 
-                "microsecond": 367000, 
+                "second": 27, 
+                "microsecond": 100000, 
                 "year": 2017, 
-                "day": 9, 
-                "minute": 24
+                "day": 14, 
+                "minute": 20
             }, 
             "EstimatedNumberOfUsers": 0, 
-            "Id": "us-east-1_HmsYGYiGg", 
+            "Id": "us-east-1_hK13zaUU3", 
             "LambdaConfig": {}
         }, 
         "ResponseMetadata": {
             "RetryAttempts": 0, 
             "HTTPStatusCode": 200, 
-            "RequestId": "ddf8f0d9-c559-11e7-9d72-09ed9a047575", 
+            "RequestId": "1e1d21e7-c958-11e7-b42f-7dd50b7a42f1", 
             "HTTPHeaders": {
-                "date": "Thu, 09 Nov 2017 14:25:41 GMT", 
-                "x-amzn-requestid": "ddf8f0d9-c559-11e7-9d72-09ed9a047575", 
-                "content-length": "4045", 
+                "date": "Tue, 14 Nov 2017 16:23:14 GMT", 
+                "x-amzn-requestid": "1e1d21e7-c958-11e7-b42f-7dd50b7a42f1", 
+                "content-length": "4041", 
                 "content-type": "application/x-amz-json-1.1", 
                 "connection": "keep-alive"
             }

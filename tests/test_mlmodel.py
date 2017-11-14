@@ -39,4 +39,7 @@ class TestMLModel(BaseTest):
         resources = p.run()
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['Name'], 'test-delete-model')
+        client = factory().client('machinelearning')
+        remainder = client.describe_ml_models()['Results']
+        self.assertEqual(len(remainder), 0)
         

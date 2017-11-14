@@ -80,11 +80,12 @@ class DataPipelineTest(BaseTest):
         p = self.load_policy({
             'name': 'delete-datapipeline',
             'resource': 'datapipeline',
-            'filters': [{'pipelineState': 'SCHEDULED'}],
+            'filters': [{'name': 'test-delete-pipeline'}],
             'actions': ['delete']
         }, session_factory=factory)
         resources = p.run()
-        self.assertEqual(len(resources), 2)
-        self.assertEqual(
-            sorted([r['name'] for r in resources]),
-            ['test-delete-pipeline', 'test-delete-pipeline2'])
+        self.assertEqual(len(resources), 1)
+        self.assertEqual(resources[0]['name'], 'test-delete-pipeline')
+        client = factory().client('datapipeline')
+        removed = client.describe_pipelines(pipelineIds=[resources[0]['id']])
+        self.assertEqual(removed['pipelineDescriptionList'][0]['fields'][12]['stringValue'], 'DELETING')

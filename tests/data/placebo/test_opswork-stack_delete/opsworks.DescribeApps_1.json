@@ -3,7 +3,7 @@
     "data": {
         "Apps": [
             {
-                "StackId": "ba31e78a-19a0-44a1-9ba3-e04ab78e00d0", 
+                "StackId": "50747b4f-b73a-4dc5-9d08-957e037170c4", 
                 "Environment": [
                     {
                         "Value": "admin@example.com", 
@@ -18,7 +18,7 @@
                 "DataSources": [], 
                 "EnableSsl": false, 
                 "SslConfiguration": {}, 
-                "AppId": "09e04c7b-995a-483d-bc31-f65c886afff0", 
+                "AppId": "af9a1e26-b25a-49c0-a3c8-5d28424d0026", 
                 "Attributes": {
                     "RailsEnv": null, 
                     "AutoBundleOnDeploy": "true", 
@@ -27,17 +27,17 @@
                 }, 
                 "Shortname": "nodejs_sample_app", 
                 "Type": "other", 
-                "CreatedAt": "2017-11-09T16:02:38+00:00", 
+                "CreatedAt": "2017-11-14T18:35:27+00:00", 
                 "Name": "Node.js Sample App"
             }
         ], 
         "ResponseMetadata": {
             "RetryAttempts": 0, 
             "HTTPStatusCode": 200, 
-            "RequestId": "459b9a6a-c56a-11e7-9db4-bd5dda854f3e", 
+            "RequestId": "a41b7a79-c96a-11e7-a45a-b503c017d393", 
             "HTTPHeaders": {
-                "date": "Thu, 09 Nov 2017 16:23:07 GMT", 
-                "x-amzn-requestid": "459b9a6a-c56a-11e7-9db4-bd5dda854f3e", 
+                "date": "Tue, 14 Nov 2017 18:35:50 GMT", 
+                "x-amzn-requestid": "a41b7a79-c96a-11e7-a45a-b503c017d393", 
                 "content-length": "566", 
                 "content-type": "application/x-amz-json-1.1", 
                 "connection": "keep-alive"

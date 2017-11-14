@@ -4,11 +4,11 @@
         "ResponseMetadata": {
             "RetryAttempts": 0, 
             "HTTPStatusCode": 200, 
-            "RequestId": "bf7979a1-c564-11e7-8c71-730531a21801", 
+            "RequestId": "0f08dcbb-c95d-11e7-af23-613c345b2053", 
             "HTTPHeaders": {
-                "x-amzn-requestid": "bf7979a1-c564-11e7-8c71-730531a21801", 
-                "date": "Thu, 09 Nov 2017 15:43:34 GMT", 
-                "content-length": "3295", 
+                "x-amzn-requestid": "0f08dcbb-c95d-11e7-af23-613c345b2053", 
+                "date": "Tue, 14 Nov 2017 16:58:37 GMT", 
+                "content-length": "2185", 
                 "content-type": "application/x-amz-json-1.1"
             }
         }, 
@@ -16,110 +16,31 @@
             {
                 "fields": [
                     {
-                        "stringValue": "2017-11-09T15:34:50", 
+                        "stringValue": "2017-11-14T16:45:02", 
                         "key": "@lastActivationTime"
                     }, 
                     {
-                        "stringValue": "2017-11-09T15:34:47", 
-                        "key": "@creationTime"
-                    }, 
-                    {
-                        "stringValue": "PIPELINE", 
-                        "key": "@sphere"
-                    }, 
-                    {
-                        "stringValue": "2017-11-09T15:34:53", 
-                        "key": "@healthStatusUpdatedTime"
-                    }, 
-                    {
-                        "stringValue": "2017-11-09T15:34:50", 
-                        "key": "@scheduledStartTime"
-                    }, 
-                    {
-                        "stringValue": "2017-11-09T15:34:50", 
-                        "key": "@scheduledEndTime"
-                    }, 
-                    {
-                        "stringValue": "ERROR", 
-                        "key": "@healthStatus"
-                    }, 
-                    {
-                        "stringValue": "2017-11-09T15:34:52", 
-                        "key": "@latestRunTime"
-                    }, 
-                    {
-                        "stringValue": "AIDAJTZQ3BYFEGBSY4N5E", 
-                        "key": "pipelineCreator"
-                    }, 
-                    {
-                        "stringValue": "2017-11-09T15:39:53", 
-                        "key": "@finishedTime"
-                    }, 
-                    {
-                        "stringValue": "1", 
-                        "key": "@version"
-                    }, 
-                    {
-                        "stringValue": "test-data-pipeline3", 
-                        "key": "name"
-                    }, 
-                    {
-                        "stringValue": "df-03640891QFXCLH8PHYSU", 
-                        "key": "@id"
-                    }, 
-                    {
-                        "stringValue": "FINISHED", 
-                        "key": "@pipelineState"
-                    }, 
-                    {
-                        "stringValue": "644160558196", 
-                        "key": "@accountId"
-                    }, 
-                    {
-                        "stringValue": "62E11697-7656-4BE5-A880-29C1AE84019E", 
-                        "key": "uniqueId"
-                    }, 
-                    {
-                        "stringValue": "AIDAJTZQ3BYFEGBSY4N5E", 
-                        "key": "@userId"
-                    }, 
-                    {
-                        "stringValue": "100 years", 
-                        "key": "@scheduledPeriod"
-                    }, 
-                    {
-                        "stringValue": "2017-11-09T15:34:50", 
-                        "key": "@firstActivationTime"
-                    }
-                ], 
-                "pipelineId": "df-03640891QFXCLH8PHYSU", 
-                "name": "test-data-pipeline3", 
-                "tags": []
-            }, 
-            {
-                "fields": [
-                    {
-                        "stringValue": "2017-11-09T15:32:30", 
-                        "key": "@lastActivationTime"
-                    }, 
-                    {
-                        "stringValue": "2017-11-30T15:32:00", 
+                        "stringValue": "2017-11-30T16:44:00", 
                         "key": "@nextRunTime"
                     }, 
                     {
-                        "stringValue": "2017-11-09T15:32:28", 
+                        "stringValue": "2017-11-14T16:45:00", 
                         "key": "@creationTime"
+                    }, 
+                    {
+                        "stringValue": "placebo2", 
+                        "key": "description"
                     }, 
                     {
                         "stringValue": "PIPELINE", 
                         "key": "@sphere"
                     }, 
                     {
-                        "stringValue": "2017-11-30T15:32:00", 
+                        "stringValue": "2017-11-30T16:44:00", 
                         "key": "@scheduledStartTime"
                     }, 
                     {
-                        "stringValue": "2019-02-28T15:32:00", 
+                        "stringValue": "2019-02-28T16:44:00", 
                         "key": "@scheduledEndTime"
                     }, 
                     {
@@ -135,7 +56,7 @@
                         "key": "name"
                     }, 
                     {
-                        "stringValue": "df-03252263EXQ8G60JS0IG", 
+                        "stringValue": "df-02720972ZC0ZFDI598AG", 
                         "key": "@id"
                     }, 
                     {
@@ -147,7 +68,7 @@
                         "key": "@accountId"
                     }, 
                     {
-                        "stringValue": "F495EC86-77EA-402E-BA63-A0BB28ED8C1E", 
+                        "stringValue": "B26AA45C-5DF0-495D-8947-68671DE429AA", 
                         "key": "uniqueId"
                     }, 
                     {
@@ -159,26 +80,27 @@
                         "key": "@scheduledPeriod"
                     }, 
                     {
-                        "stringValue": "2017-11-09T15:32:30", 
+                        "stringValue": "2017-11-14T16:45:02", 
                         "key": "@firstActivationTime"
                     }
                 ], 
-                "pipelineId": "df-03252263EXQ8G60JS0IG", 
+                "pipelineId": "df-02720972ZC0ZFDI598AG", 
                 "name": "test-delete-pipeline2", 
-                "tags": []
+                "tags": [], 
+                "description": "placebo2"
             }, 
             {
                 "fields": [
                     {
-                        "stringValue": "2017-11-09T15:31:46", 
+                        "stringValue": "2017-11-14T16:58:20", 
                         "key": "@lastActivationTime"
                     }, 
                     {
-                        "stringValue": "2017-11-30T15:30:00", 
+                        "stringValue": "2017-11-30T16:58:00", 
                         "key": "@nextRunTime"
                     }, 
                     {
-                        "stringValue": "2017-11-09T15:31:43", 
+                        "stringValue": "2017-11-14T16:58:18", 
                         "key": "@creationTime"
                     }, 
                     {
@@ -190,11 +112,11 @@
                         "key": "@sphere"
                     }, 
                     {
-                        "stringValue": "2017-11-30T15:30:00", 
+                        "stringValue": "2017-11-30T16:58:00", 
                         "key": "@scheduledStartTime"
                     }, 
                     {
-                        "stringValue": "2019-02-28T15:30:00", 
+                        "stringValue": "2019-02-28T16:58:00", 
                         "key": "@scheduledEndTime"
                     }, 
                     {
@@ -210,7 +132,7 @@
                         "key": "name"
                     }, 
                     {
-                        "stringValue": "df-01551281TB5UK9YWHIRS", 
+                        "stringValue": "df-07685871HDLCFQ0YDZDX", 
                         "key": "@id"
                     }, 
                     {
@@ -222,7 +144,7 @@
                         "key": "@accountId"
                     }, 
                     {
-                        "stringValue": "7718724B-DBF0-43C5-B7FE-C903A8DAE434", 
+                        "stringValue": "0B3214B1-EFD6-4D87-9363-9F8882F1F8E2", 
                         "key": "uniqueId"
                     }, 
                     {
@@ -234,11 +156,11 @@
                         "key": "@scheduledPeriod"
                     }, 
                     {
-                        "stringValue": "2017-11-09T15:31:46", 
+                        "stringValue": "2017-11-14T16:58:20", 
                         "key": "@firstActivationTime"
                     }
                 ], 
-                "pipelineId": "df-01551281TB5UK9YWHIRS", 
+                "pipelineId": "df-07685871HDLCFQ0YDZDX", 
                 "name": "test-delete-pipeline", 
                 "tags": [], 
                 "description": "placebo"

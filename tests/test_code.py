@@ -43,6 +43,11 @@ class CodeCommit(BaseTest):
         self.assertEqual(
             sorted([r['repositoryName'] for r in resources]),
             ['test-delete-codecommit', 'test-delete-codecommit3'])
+        client = factory().client('codecommit')
+        remainder = client.list_repositories()['repositories']
+        self.assertEqual(len(remainder), 1)
+        self.assertNotEqual(remainder[0]['repositoryName'], 'test-delete-codecommit')
+        self.assertNotEqual(remainder[0]['repositoryName'], 'test-delete-codecommit3')
 
 
 class CodeBuild(BaseTest):
@@ -74,6 +79,10 @@ class CodeBuild(BaseTest):
         resources = p.run()
         self.assertEqual(len(resources), 1)
         self.assertEqual(resources[0]['name'], 'test-delete-codebuild')
+        client = factory().client('codebuild')
+        remainder = client.list_projects()['projects']
+        self.assertEqual(len(remainder), 2)
+        self.assertNotIn('test-delete-codebuild', remainder)
 
 
 class CodePipeline(BaseTest):

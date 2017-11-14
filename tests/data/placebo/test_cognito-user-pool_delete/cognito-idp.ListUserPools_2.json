@@ -26,41 +26,16 @@
                 "LambdaConfig": {}, 
                 "Id": "us-east-1_hK13zaUU3", 
                 "Name": "test-delete-user-pool2"
-            }, 
-            {
-                "CreationDate": {
-                    "hour": 11, 
-                    "__class__": "datetime", 
-                    "month": 11, 
-                    "second": 2, 
-                    "microsecond": 171000, 
-                    "year": 2017, 
-                    "day": 14, 
-                    "minute": 23
-                }, 
-                "LastModifiedDate": {
-                    "hour": 11, 
-                    "__class__": "datetime", 
-                    "month": 11, 
-                    "second": 2, 
-                    "microsecond": 171000, 
-                    "year": 2017, 
-                    "day": 14, 
-                    "minute": 23
-                }, 
-                "LambdaConfig": {}, 
-                "Id": "us-east-1_rDwm3X6Xo", 
-                "Name": "test-delete-user-pool"
             }
         ], 
         "ResponseMetadata": {
             "RetryAttempts": 0, 
             "HTTPStatusCode": 200, 
-            "RequestId": "1df611ef-c958-11e7-9617-4fb7e1d82355", 
+            "RequestId": "1eb60659-c958-11e7-b4fd-652d44bc0138", 
             "HTTPHeaders": {
-                "date": "Tue, 14 Nov 2017 16:23:15 GMT", 
-                "x-amzn-requestid": "1df611ef-c958-11e7-9617-4fb7e1d82355", 
-                "content-length": "304", 
+                "date": "Tue, 14 Nov 2017 16:23:16 GMT", 
+                "x-amzn-requestid": "1eb60659-c958-11e7-b4fd-652d44bc0138", 
+                "content-length": "158", 
                 "content-type": "application/x-amz-json-1.1", 
                 "connection": "keep-alive"
             }

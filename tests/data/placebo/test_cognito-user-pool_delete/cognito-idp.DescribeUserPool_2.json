@@ -221,13 +221,13 @@
                 "DefaultEmailOption": "CONFIRM_WITH_CODE"
             }, 
             "LastModifiedDate": {
-                "hour": 9, 
+                "hour": 11, 
                 "__class__": "datetime", 
                 "month": 11, 
-                "second": 46, 
-                "microsecond": 729000, 
+                "second": 2, 
+                "microsecond": 171000, 
                 "year": 2017, 
-                "day": 9, 
+                "day": 14, 
                 "minute": 23
             }, 
             "AdminCreateUserConfig": {
@@ -249,26 +249,26 @@
             }, 
             "UserPoolTags": {}, 
             "CreationDate": {
-                "hour": 9, 
+                "hour": 11, 
                 "__class__": "datetime", 
                 "month": 11, 
-                "second": 46, 
-                "microsecond": 729000, 
+                "second": 2, 
+                "microsecond": 171000, 
                 "year": 2017, 
-                "day": 9, 
+                "day": 14, 
                 "minute": 23
             }, 
             "EstimatedNumberOfUsers": 0, 
-            "Id": "us-east-1_nyTjhjSNv", 
+            "Id": "us-east-1_rDwm3X6Xo", 
             "LambdaConfig": {}
         }, 
         "ResponseMetadata": {
             "RetryAttempts": 0, 
             "HTTPStatusCode": 200, 
-            "RequestId": "de150506-c559-11e7-ba7d-b7f4dd31211a", 
+            "RequestId": "1e2f2324-c958-11e7-a307-036453965bca", 
             "HTTPHeaders": {
-                "date": "Thu, 09 Nov 2017 14:25:41 GMT", 
-                "x-amzn-requestid": "de150506-c559-11e7-ba7d-b7f4dd31211a", 
+                "date": "Tue, 14 Nov 2017 16:23:15 GMT", 
+                "x-amzn-requestid": "1e2f2324-c958-11e7-a307-036453965bca", 
                 "content-length": "4044", 
                 "content-type": "application/x-amz-json-1.1", 
                 "connection": "keep-alive"

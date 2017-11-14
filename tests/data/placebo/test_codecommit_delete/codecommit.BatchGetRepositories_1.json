@@ -3,92 +3,89 @@
     "data": {
         "repositories": [
             {
-                "creationDate": {
-                    "hour": 9, 
-                    "__class__": "datetime", 
-                    "month": 11, 
-                    "second": 57, 
-                    "microsecond": 198000, 
-                    "year": 2017, 
-                    "day": 9, 
-                    "minute": 42
-                }, 
-                "defaultBranch": "master", 
                 "repositoryName": "test-delete-codecommit", 
                 "cloneUrlSsh": "ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/test-delete-codecommit", 
                 "lastModifiedDate": {
                     "hour": 10, 
                     "__class__": "datetime", 
                     "month": 11, 
-                    "second": 38, 
-                    "microsecond": 247000, 
+                    "second": 40, 
+                    "microsecond": 854000, 
                     "year": 2017, 
-                    "day": 9, 
-                    "minute": 8
+                    "day": 14, 
+                    "minute": 49
                 }, 
                 "repositoryDescription": "placebo", 
                 "cloneUrlHttp": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/test-delete-codecommit", 
-                "repositoryId": "738edb78-6bb5-4ceb-a00d-1d4547e7afec", 
-                "Arn": "arn:aws:codecommit:us-east-1:644160558196:test-delete-codecommit", 
-                "accountId": "644160558196"
-            }, 
-            {
                 "creationDate": {
                     "hour": 10, 
                     "__class__": "datetime", 
                     "month": 11, 
-                    "second": 30, 
-                    "microsecond": 298000, 
+                    "second": 40, 
+                    "microsecond": 854000, 
                     "year": 2017, 
-                    "day": 9, 
-                    "minute": 9
+                    "day": 14, 
+                    "minute": 49
                 }, 
-                "defaultBranch": "master", 
+                "repositoryId": "3fadfc19-ad40-4cab-a211-a6b34269bfad", 
+                "Arn": "arn:aws:codecommit:us-east-1:644160558196:test-delete-codecommit", 
+                "accountId": "644160558196"
+            }, 
+            {
                 "repositoryName": "test-delete-codecommit2", 
                 "cloneUrlSsh": "ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/test-delete-codecommit2", 
                 "lastModifiedDate": {
                     "hour": 10, 
                     "__class__": "datetime", 
                     "month": 11, 
-                    "second": 23, 
-                    "microsecond": 545000, 
+                    "second": 3, 
+                    "microsecond": 923000, 
                     "year": 2017, 
-                    "day": 9, 
-                    "minute": 10
+                    "day": 14, 
+                    "minute": 50
                 }, 
                 "repositoryDescription": "placebo2", 
                 "cloneUrlHttp": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/test-delete-codecommit2", 
-                "repositoryId": "657010ec-74dc-4161-817f-7808a7c24082", 
-                "Arn": "arn:aws:codecommit:us-east-1:644160558196:test-delete-codecommit2", 
-                "accountId": "644160558196"
-            }, 
-            {
                 "creationDate": {
                     "hour": 10, 
                     "__class__": "datetime", 
                     "month": 11, 
-                    "second": 52, 
-                    "microsecond": 958000, 
+                    "second": 3, 
+                    "microsecond": 923000, 
                     "year": 2017, 
-                    "day": 9, 
-                    "minute": 10
+                    "day": 14, 
+                    "minute": 50
                 }, 
-                "defaultBranch": "master", 
+                "repositoryId": "5adbf477-56a3-4799-9e53-23b5d379b3c8", 
+                "Arn": "arn:aws:codecommit:us-east-1:644160558196:test-delete-codecommit2", 
+                "accountId": "644160558196"
+            }, 
+            {
                 "repositoryName": "test-delete-codecommit3", 
                 "cloneUrlSsh": "ssh://git-codecommit.us-east-1.amazonaws.com/v1/repos/test-delete-codecommit3", 
                 "lastModifiedDate": {
                     "hour": 10, 
                     "__class__": "datetime", 
                     "month": 11, 
-                    "second": 59, 
-                    "microsecond": 219000, 
+                    "second": 20, 
+                    "microsecond": 426000, 
                     "year": 2017, 
-                    "day": 9, 
-                    "minute": 14
+                    "day": 14, 
+                    "minute": 50
                 }, 
                 "repositoryDescription": "placebo", 
                 "cloneUrlHttp": "https://git-codecommit.us-east-1.amazonaws.com/v1/repos/test-delete-codecommit3", 
-                "repositoryId": "1429d43c-26ad-4b2d-b00d-ef61097faa46", 
+                "creationDate": {
+                    "hour": 10, 
+                    "__class__": "datetime", 
+                    "month": 11, 
+                    "second": 20, 
+                    "microsecond": 426000, 
+                    "year": 2017, 
+                    "day": 14, 
+                    "minute": 50
+                }, 
+                "repositoryId": "18ea7aa4-b4a1-48d7-a438-3428f6fdcbd1", 
                 "Arn": "arn:aws:codecommit:us-east-1:644160558196:test-delete-codecommit3", 
                 "accountId": "644160558196"
             }
@@ -97,11 +94,11 @@
         "ResponseMetadata": {
             "RetryAttempts": 0, 
             "HTTPStatusCode": 200, 
-            "RequestId": "2ac6072e-c561-11e7-bee1-f31578050850", 
+            "RequestId": "cd7c66ee-c953-11e7-96d5-914a90de92a8", 
             "HTTPHeaders": {
-                "x-amzn-requestid": "2ac6072e-c561-11e7-bee1-f31578050850", 
-                "date": "Thu, 09 Nov 2017 15:17:57 GMT", 
-                "content-length": "1595", 
+                "x-amzn-requestid": "cd7c66ee-c953-11e7-96d5-914a90de92a8", 
+                "date": "Tue, 14 Nov 2017 15:52:22 GMT", 
+                "content-length": "1520", 
                 "content-type": "application/x-amz-json-1.1"
             }
         }
