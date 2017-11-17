@@ -86,11 +86,11 @@ class DeleteStack(BaseAction, StateTransitionFilter):
         with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_stacks, stacks))
 
-    def process_stacks(self, stack):
+    def process_stacks(self, stacks):
         client = local_session(
             self.manager.session_factory).client('opsworks')
         try:
-            stack_id = stack['StackId']
+            stack_id = stacks['StackId']
             for app in client.describe_apps(StackId=stack_id)['Apps']:
                 client.delete_app(AppId=app['AppId'])
             instances = client.describe_instances(StackId=stack_id)['Instances']
@@ -99,7 +99,7 @@ class DeleteStack(BaseAction, StateTransitionFilter):
             if(len(instances) != orig_length):
                 self.log.exception(
                     "All instances must be stopped before deletion. Stack Id: %s Name: %s." %
-                    (stack_id, stack['Name']))
+                    (stack_id, stacks['Name']))
                 return
             for instance in instances:
                 instance_id = instance['InstanceId']
@@ -144,11 +144,11 @@ class StopStack(BaseAction):
         with self.executor_factory(max_workers=10) as w:
             list(w.map(self.process_stacks, stacks))
 
-    def process_stacks(self, stack):
+    def process_stacks(self, stacks):
         client = local_session(
             self.manager.session_factory).client('opsworks')
         try:
-            stack_id = stack['StackId']
+            stack_id = stacks['StackId']
             client.stop_stack(StackId=stack_id)
         except ClientError as e:
             self.log.exception(
@@ -192,11 +192,11 @@ class CMDelete(BaseAction):
         with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_servers, servers))
 
-    def process_servers(self, server):
+    def process_servers(self, servers):
         client = local_session(
             self.manager.session_factory).client('opsworkscm')
         try:
-            client.delete_server(ServerName=server['ServerName'])
+            client.delete_server(ServerName=servers['ServerName'])
         except ClientError as e:
             self.log.exception(
                 "Exception deleting server:\n %s" % e)

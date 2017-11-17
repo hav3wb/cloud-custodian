@@ -59,11 +59,11 @@ class DeleteIdentityPool(BaseAction):
         with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_pools, pools))
 
-    def process_pools(self, pool):
+    def process_pools(self, pools):
         client = local_session(
             self.manager.session_factory).client('cognito-identity')
         try:
-            client.delete_identity_pool(IdentityPoolId=pool['IdentityPoolId'])
+            client.delete_identity_pool(IdentityPoolId=pools['IdentityPoolId'])
         except ClientError as e:
             self.log.exception(
                 "Exception deleting identity pool:\n %s" % e)
@@ -107,11 +107,11 @@ class DeleteUserPool(BaseAction):
         with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_pools, pools))
 
-    def process_pools(self, pool):
+    def process_pools(self, pools):
         client = local_session(
             self.manager.session_factory).client('cognito-idp')
         try:
-            client.delete_user_pool(UserPoolId=pool['Id'])
+            client.delete_user_pool(UserPoolId=pools['Id'])
         except ClientError as e:
             self.log.exception(
                 "Exception deleting user pool:\n %s" % e)

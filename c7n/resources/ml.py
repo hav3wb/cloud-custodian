@@ -59,11 +59,11 @@ class DeleteMLModel(BaseAction):
         with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_models, models))
 
-    def process_models(self, model):
+    def process_models(self, models):
         client = local_session(
             self.manager.session_factory).client('machinelearning')
         try:
-            client.delete_ml_model(MLModelId=model['MLModelId'])
+            client.delete_ml_model(MLModelId=models['MLModelId'])
         except ClientError as e:
             self.log.exception(
                 "Exception deleting ML model:\n %s" % e)

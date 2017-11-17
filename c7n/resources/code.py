@@ -63,11 +63,11 @@ class DeleteRepository(BaseAction):
         with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_repositories, repositories))
 
-    def process_repositories(self, repository):
+    def process_repositories(self, repositories):
         client = local_session(
             self.manager.session_factory).client('codecommit')
         try:
-            client.delete_repository(repositoryName=repository['repositoryName'])
+            client.delete_repository(repositoryName=repositories['repositoryName'])
         except ClientError as e:
             self.log.exception(
                 "Exception deleting repo:\n %s" % e)
@@ -111,11 +111,11 @@ class DeleteProject(BaseAction):
         with self.executor_factory(max_workers=2) as w:
             list(w.map(self.process_projects, projects))
 
-    def process_projects(self, project):
+    def process_projects(self, projects):
         client = local_session(
             self.manager.session_factory).client('codebuild')
         try:
-            client.delete_project(name=project['name'])
+            client.delete_project(name=projects['name'])
         except ClientError as e:
             self.log.exception(
                 "Exception deleting project:\n %s" % e)
