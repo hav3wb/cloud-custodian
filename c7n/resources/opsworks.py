@@ -27,7 +27,8 @@ class StateTransitionFilter(object):
 
     Try to simplify construction for policy authors by automatically
     filtering elements (filters or actions) to the instances states
-    they are valid for.
+    they are valid for. Separate from ec2 class as uses ['status']
+    instead of ['State']['Name'].
 
     For more details see http://goo.gl/TZH9Q5
     """
