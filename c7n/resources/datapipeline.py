@@ -102,13 +102,13 @@ class Delete(BaseAction):
 
     def process(self, pipelines):
         with self.executor_factory(max_workers=2) as w:
-            list(w.map(self.process_pipelines, pipelines))
+            list(w.map(self.process_pipeline, pipelines))
 
-    def process_pipelines(self, pipelines):
+    def process_pipeline(self, pipeline):
         client = local_session(
             self.manager.session_factory).client('datapipeline')
         try:
-            client.delete_pipeline(pipelineId=pipelines['id'])
+            client.delete_pipeline(pipelineId=pipeline['id'])
         except ClientError as e:
             self.log.exception(
                 "Exception deleting pipeline:\n %s" % e)
