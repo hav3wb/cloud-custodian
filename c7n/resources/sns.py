@@ -116,7 +116,6 @@ class RemovePolicyStatement(RemovePolicyBase):
         #     AttributeName='Policy',
         #     AttributeValue=json.dumps(p)
         # )
-
         for f in found:
             client.remove_permission(
                 TopicArn=resource['TopicArn'],
