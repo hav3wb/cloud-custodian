@@ -86,7 +86,7 @@ class RemovePolicyStatement(RemovePolicyBase):
                     statement_ids: matched
     """
 
-    permissions = ('sns:SetTopicAttributes', 'sns:GetTopicAttributes')
+    permissions = ('sns:SetTopicAttributes', 'sns:GetTopicAttributes', 'sns:RemovePermission')
 
     def process(self, resources):
         results = []
@@ -111,11 +111,17 @@ class RemovePolicyStatement(RemovePolicyBase):
         if not found:
             return
 
-        client.set_topic_attributes(
-            TopicArn=resource['TopicArn'],
-            AttributeName='Policy',
-            AttributeValue=json.dumps(p)
-        )
+        # client.set_topic_attributes(
+        #     TopicArn=resource['TopicArn'],
+        #     AttributeName='Policy',
+        #     AttributeValue=json.dumps(p)
+        # )
+
+        for f in found:
+            client.remove_permission(
+                TopicArn=resource['TopicArn'],
+                Label=f['Sid'])
+
         return {'Name': resource['TopicArn'],
                 'State': 'PolicyRemoved',
                 'Statements': found}
