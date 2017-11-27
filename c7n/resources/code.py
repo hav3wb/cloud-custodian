@@ -122,40 +122,6 @@ class DeleteProject(BaseAction):
                 "Exception deleting project:\n %s" % e)
 
 
-@CodeBuildProject.action_registry.register('delete')
-class DeleteProject(BaseAction):
-    """Action to delete code build
-
-    It is recommended to use a filter to avoid unwanted deletion of builds
-
-    :example:
-
-        .. code-block: yaml
-
-            policies:
-              - name: codebuild-delete
-                resource: codebuild
-                actions:
-                  - delete
-    """
-
-    schema = type_schema('delete')
-    permissions = ("codebuild:DeleteProject",)
-
-    def process(self, projects):
-        with self.executor_factory(max_workers=2) as w:
-            list(w.map(self.process_project, projects))
-
-    def process_project(self, project):
-        client = local_session(
-            self.manager.session_factory).client('codebuild')
-        try:
-            client.delete_project(name=project['name'])
-        except ClientError as e:
-            self.log.exception(
-                "Exception deleting project:\n %s" % e)
-
-
 @resources.register('codepipeline')
 class CodeDeployPipeline(QueryResourceManager):
 
