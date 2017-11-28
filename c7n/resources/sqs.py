@@ -132,7 +132,7 @@ class RemovePolicyStatement(RemovePolicyBase):
                     statement_ids: matched
     """
 
-    permissions = ('sqs:GetQueueAttributes', 'sqs:SetQueueAttributes', 'sqs:RemovePermission')
+    permissions = ('sqs:GetQueueAttributes', 'sqs:RemovePermission')
 
     def process(self, resources):
         results = []
@@ -156,13 +156,6 @@ class RemovePolicyStatement(RemovePolicyBase):
 
         if not found:
             return
-
-        # client.set_queue_attributes(
-        #     QueueUrl=resource['QueueUrl'],
-        #     Attributes={
-        #         'Policy':json.dumps(p)
-        #     }
-        # )
 
         for f in found:
             client.remove_permission(
