@@ -236,7 +236,8 @@ class Time(Filter):
             'weekends': {'type': 'boolean'},
             'weekends-only': {'type': 'boolean'},
             'opt-out': {'type': 'boolean'},
-            'skip-days': {'type': 'array', 'items': {'type': 'string', 'pattern': '^[0-9]{4}-[0-9]{2}-[0-9]{2}'}},
+            'skip-days': {'type': 'array', 'items':
+                {'type': 'string', 'pattern': '^[0-9]{4}-[0-9]{2}-[0-9]{2}'}},
             'skip-days-from': ValuesFrom.schema,
         }
     }
