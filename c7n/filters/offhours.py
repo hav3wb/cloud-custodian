@@ -213,6 +213,7 @@ from dateutil import zoneinfo
 
 from c7n.filters import Filter, FilterValidationError
 from c7n.utils import type_schema, dumps
+from c7n.resolver import ValuesFrom
 
 log = logging.getLogger('custodian.offhours')
 
@@ -235,6 +236,8 @@ class Time(Filter):
             'weekends': {'type': 'boolean'},
             'weekends-only': {'type': 'boolean'},
             'opt-out': {'type': 'boolean'},
+            'skip-days': {'type': 'array', 'items': {'type': 'string'}},
+            'skip-days-from': ValuesFrom.schema,
         }
     }
 
@@ -289,6 +292,8 @@ class Time(Filter):
         self.parse_errors = []
         self.enabled_count = 0
 
+        # self.skip_days = self.data.get('skip-days', [])
+
     def validate(self):
         if self.get_tz(self.default_tz) is None:
             raise FilterValidationError(
@@ -296,6 +301,9 @@ class Time(Filter):
         hour = self.data.get("%shour" % self.time_type, self.DEFAULT_HR)
         if hour not in self.parser.VALID_HOURS:
             raise FilterValidationError("Invalid hour specified %s" % hour)
+        if 'skip-days' in self.data and 'skip-days-from' in self.data:
+            raise FilterValidationError(
+                "Cannot specify two sets of skip days %s" % self.data)
         return self
 
     def process(self, resources, event=None):
@@ -376,6 +384,14 @@ class Time(Filter):
             return False
         now = datetime.datetime.now(tz).replace(
             minute=0, second=0, microsecond=0)
+        now_str = now.date().strftime("%Y-%m-%d")
+        if 'skip-days-from' in self.data:
+            values = ValuesFrom(self.data['skip-days-from'], self.manager)
+            self.skip_days = values.get_values()
+        else:
+            self.skip_days = self.data.get('skip-days', [])
+        if now_str in self.skip_days:
+            return False
         return self.match(now, schedule)
 
     def match(self, now, schedule):
