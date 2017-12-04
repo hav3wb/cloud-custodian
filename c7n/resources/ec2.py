@@ -398,7 +398,7 @@ class InstanceOffHour(OffHour, StateTransitionFilter):
     """Custodian OffHour filter
 
     Filters running EC2 instances with the intent to stop at a given hour of
-    the day. A list of days to excluded can be included as a list of strings 
+    the day. A list of days to excluded can be included as a list of strings
     with the format YYYY-MM-DD. Alternatively, the list (using the same syntax)
     can be taken from a specified url.
 
@@ -435,7 +435,7 @@ class InstanceOffHour(OffHour, StateTransitionFilter):
                 tag: custodian_downtime
                 default_tz: et
                 offhour: 20
-                skip-days-from: 
+                skip-days-from:
                   expr: 0
                   format: csv
                   url: 's3://location/holidays.csv'
@@ -455,7 +455,7 @@ class InstanceOnHour(OnHour, StateTransitionFilter):
     """Custodian OnHour filter
 
     Filters stopped EC2 instances with the intent to start at a given hour of
-    the day. A list of days to excluded can be included as a list of strings 
+    the day. A list of days to excluded can be included as a list of strings
     with the format YYYY-MM-DD. Alternatively, the list (using the same syntax)
     can be taken from a specified url.
 
@@ -492,7 +492,7 @@ class InstanceOnHour(OnHour, StateTransitionFilter):
                 tag: custodian_downtime
                 default_tz: et
                 onhour: 6
-                skip-days-from: 
+                skip-days-from:
                   expr: 0
                   format: csv
                   url: 's3://location/holidays.csv'

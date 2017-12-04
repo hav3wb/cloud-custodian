@@ -292,8 +292,6 @@ class Time(Filter):
         self.parse_errors = []
         self.enabled_count = 0
 
-        # self.skip_days = self.data.get('skip-days', [])
-
     def validate(self):
         if self.get_tz(self.default_tz) is None:
             raise FilterValidationError(
