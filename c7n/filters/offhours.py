@@ -236,7 +236,7 @@ class Time(Filter):
             'weekends': {'type': 'boolean'},
             'weekends-only': {'type': 'boolean'},
             'opt-out': {'type': 'boolean'},
-            'skip-days': {'type': 'array', 'items': {'type': 'string'}},
+            'skip-days': {'type': 'array', 'items': {'type': 'string', 'pattern': '^[0-9]{4}-[0-9]{2}-[0-9]{2}'}},
             'skip-days-from': ValuesFrom.schema,
         }
     }
@@ -382,7 +382,7 @@ class Time(Filter):
             return False
         now = datetime.datetime.now(tz).replace(
             minute=0, second=0, microsecond=0)
-        now_str = now.date().strftime("%Y-%m-%d")
+        now_str = now.strftime("%Y-%m-%d")
         if 'skip-days-from' in self.data:
             values = ValuesFrom(self.data['skip-days-from'], self.manager)
             self.skip_days = values.get_values()
