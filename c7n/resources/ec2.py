@@ -483,7 +483,7 @@ class InstanceOnHour(OnHour, StateTransitionFilter):
                 onhour: 6
                 skip-days: ['2017-12-25']
             actions:
-              - stop
+              - start
 
           - name: onhour-morning-start-skip-holidays-from
             resource: ec2
@@ -497,7 +497,7 @@ class InstanceOnHour(OnHour, StateTransitionFilter):
                   format: csv
                   url: 's3://location/holidays.csv'
             actions:
-              - stop
+              - start
     """
 
     valid_origin_states = ('stopped',)

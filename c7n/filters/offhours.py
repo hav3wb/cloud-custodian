@@ -28,6 +28,7 @@ Features
 - Can be combined with other filters to get a particular set (
   resources with tag, vpc, etc).
 - Can be combined with arbitrary actions
+- Can omit a set of dates such as public holidays.
 
 Policy Configuration
 ====================
@@ -50,6 +51,10 @@ different policy, they support the same configuration options:
    the policy.
  - **onhour**: the default time to start/run resources, specified as 0-23
  - **offhour**: the default time to stop/suspend resources, specified as 0-23
+ - **skip-days**: a list of dates to skip. Dates must use format YYYY-MM-DD
+ - **skip-days-from**: a list of dates to skip stored at a url. **expr**,
+   **format**, and **url** must be passed as parameters. Same syntax as
+   ``value_from``. Can not specify both **skip-days-from** and **skip-days**.
 
 This example policy overrides most of the defaults for an offhour policy:
 
@@ -200,6 +205,32 @@ above. The best current workaround is to define a separate policy with a unique
 ``tag`` name for each unique schedule that you want to use, and then tag
 resources with that tag name and a value of ``on``. Note that this can only be
 used in opt-in mode, not opt-out.
+
+Public Holidays
+===============
+
+In order to properly implement support for public holidays, make sure to include
+either **skip-days** or **skip-days-from** with your policy. This list
+should contain all of the public holidays you wish to address and must use
+YYYY-MM-DD syntax for its dates. If the date the policy is being run on matches
+any one of those dates, the policy will not return any resources. These dates
+include year as many holidays vary from year to year so year is required to prevent
+errors. A sample policy that would not start stopped instances on a public holiday
+might look like:
+
+.. code-block:: yaml
+
+    policies: 
+        - name: onhour-morning-start-skip-holidays
+          resource: ec2
+          filters:
+            - type: onhour
+              tag: custodian_downtime
+              default_tz: et
+              onhour: 6
+              skip-days: ['2017-12-25']
+          actions:
+            - start
 
 """
 from __future__ import absolute_import, division, print_function, unicode_literals
