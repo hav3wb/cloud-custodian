@@ -220,7 +220,7 @@ might look like:
 
 .. code-block:: yaml
 
-    policies: 
+    policies:
         - name: onhour-morning-start-skip-holidays
           resource: ec2
           filters:
